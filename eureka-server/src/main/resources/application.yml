@@ -1,0 +1,27 @@
+server:
+  port: 8761
+
+spring:
+  application:
+    name: eureka-server
+  zipkin:
+    base-url: http://localhost:9411
+
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+    healthcheck:
+      enabled: true
+  dashboard:
+    path: /eureka-dashboard
+
+management:
+  endpoints:
+    web:
+      base-path: /management/actuator
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always

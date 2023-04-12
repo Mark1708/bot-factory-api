@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: bot-api-core
+  profiles:
+    active: dev
+  cloud:
+    config:
+      discovery:
+        service-id: config-service
+        enabled: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}

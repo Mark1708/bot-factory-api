@@ -1,0 +1,45 @@
+server:
+  port: 8090
+
+spring:
+  application:
+    name: config-service
+  profiles:
+    active: dev,native
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+    config:
+      server:
+        git:
+          uri: ${GIT_CONFIG:https://github.com/Mark1708/bot-factory-api-config.git}
+          search-paths:
+            - "{application}/{profile}"
+          default-label: master
+          clone-on-start: true
+          username: ${GIT_USERNAME}
+          password: ${GIT_PASS}
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
+
+management:
+  endpoints:
+    web:
+      base-path: /management/actuator
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
+
+
+
+logging:
+  level:
+    com:
+      netflix: error
