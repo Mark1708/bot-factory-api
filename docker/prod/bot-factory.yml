@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+
+  bot-api-core:
+    image: ghcr.io/mark1708/bf-bot-api-core:v1.0.0
+    networks:
+      - backend
+    deploy:
+      restart_policy:
+        condition: on-failure
+      mode: replicated
+      replicas: 1
+
+  bot-factory-core:
+    image: ghcr.io/mark1708/bf-bot-factory-core:v1.0.0
+    networks:
+      - backend
+    deploy:
+      restart_policy:
+        condition: on-failure
+      mode: replicated
+      replicas: 1
+
+networks:
+  backend:
+    external: true

@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:12.2-alpine
+    environment:
+      POSTGRES_USER: my-root-postgres
+      POSTGRES_PASSWORD: v7GPTA0GjawztoYIJc
+    volumes:
+      - /mnt/db-data:/var/lib/postgresql/data
+      - ./init:/docker-entrypoint-initdb.d/
+    networks:
+      - backend
+    deploy:
+      restart_policy:
+        condition: on-failure
+      mode: replicated
+      replicas: 1
+
+networks:
+  backend:
+    external: true
