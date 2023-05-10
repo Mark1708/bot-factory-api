@@ -31,7 +31,7 @@
     <spring.cloud.dependencies.version>2021.0.5</spring.cloud.dependencies.version>
 
     <jib-maven-plugin.version>3.1.4</jib-maven-plugin.version>
-    <image>ghcr.io/mark1708/${project.artifactId}:${project.version}</image>
+    <image>ghcr.io/mark1708/bf-${project.artifactId}:${project.version}</image>
 
     <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
 
@@ -110,12 +110,8 @@
           <version>${jib-maven-plugin.version}</version>
           <configuration>
             <from>
-              <image>eclipse-temurin:11-alpine</image>
+              <image>eclipse-temurin:11</image>
               <platforms>
-                <platform>
-                  <architecture>arm64</architecture>
-                  <os>linux</os>
-                </platform>
                 <platform>
                   <architecture>amd64</architecture>
                   <os>linux</os>
@@ -125,6 +121,7 @@
             <to>
               <tags>
                 <tag>latest</tag>
+                <tag>${image-version}</tag>
               </tags>
             </to>
           </configuration>
