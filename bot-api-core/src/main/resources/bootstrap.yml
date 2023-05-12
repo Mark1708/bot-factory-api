@@ -2,12 +2,17 @@ spring:
   application:
     name: bot-api-core
   profiles:
-    active: dev
+    active: ${PROFILES:dev}
   cloud:
     config:
       discovery:
         service-id: config-service
         enabled: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: https://auth.mark1708.ru/realms/bot-factory/protocol/openid-connect/certs
 
 eureka:
   client:
