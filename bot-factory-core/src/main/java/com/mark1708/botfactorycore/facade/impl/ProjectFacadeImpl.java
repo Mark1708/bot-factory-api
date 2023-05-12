@@ -1,10 +1,13 @@
 package com.mark1708.botfactorycore.facade.impl;
 
+import com.mark1708.botfactorycore.client.BotApiClient;
 import com.mark1708.botfactorycore.converter.CompanyConverter;
 import com.mark1708.botfactorycore.converter.ProjectConverter;
 import com.mark1708.botfactorycore.converter.UserConverter;
 import com.mark1708.botfactorycore.exception.http.BadRequestException;
 import com.mark1708.botfactorycore.facade.ProjectFacade;
+import com.mark1708.botfactorycore.model.bot.BotDto;
+import com.mark1708.botfactorycore.model.bot.CreateBotDto;
 import com.mark1708.botfactorycore.model.company.CompanyDto;
 import com.mark1708.botfactorycore.model.entity.Company;
 import com.mark1708.botfactorycore.model.entity.Project;
@@ -32,6 +35,8 @@ public class ProjectFacadeImpl implements ProjectFacade {
   private final ProjectService projectService;
   private final CompanyService companyService;
   private final UserService userService;
+
+  private final BotApiClient botApiClient;
 
   private final ProjectConverter projectConverter;
   private final CompanyConverter companyConverter;
@@ -92,9 +97,31 @@ public class ProjectFacadeImpl implements ProjectFacade {
     );
   }
 
+  // TODO: метод для проверки наличия API key для генерации нового
+
   @Override
   public ProjectDto updateProject(Long id, ProjectDto projectDto) {
     Project project = projectService.getProjectById(id);
+
+    if (
+        !projectDto.getApiKey().equals(project.getApiKey()) ||
+        !projectDto.getWebhookPath().equals(project.getWebhookPath()) ||
+        projectDto.isActive() != project.isActive()
+    ) {
+      if (project.getBotId() == null) {
+        // TODO: создать бота
+        BotDto bot = botApiClient.createBot(
+            new CreateBotDto(projectDto.getApiKey(), projectDto.getWebhookPath())
+        );
+        projectDto.setBotId(bot.getId());
+      } else {
+        // TODO: обновить данные бота
+        BotDto botDto = botApiClient.updateBot(project.getBotId(),
+            new BotDto(project.getBotId(), projectDto.getApiKey(), projectDto.getWebhookPath(),
+                projectDto.isActive())
+        );
+      }
+    }
 
     BeanUtils.copyProperties(projectDto, project, "id");
 

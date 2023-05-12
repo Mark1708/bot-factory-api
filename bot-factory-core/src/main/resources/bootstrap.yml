@@ -8,6 +8,23 @@ spring:
       discovery:
         service-id: config-service
         enabled: true
+  security:
+    oauth2:
+      client:
+        registration:
+          backend-clients:
+            client-id: backend-clients
+            client-secret: tUFoRftBx4DE6XmssB997EzZA2Qk7PyY
+            scope: openid, profile, roles
+            authorization-grant-type: client_credentials
+
+        provider:
+          backend-clients:
+            issuer-uri: https://auth.mark1708.ru/realms/bot-factory
+
+      resourceserver:
+        jwt:
+          issuer-uri: https://auth.mark1708.ru/realms/bot-factory
 
 eureka:
   client:
