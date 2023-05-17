@@ -1,4 +1,4 @@
-package com.mark1708.botapicore.model.bot;
+package com.mark1708.botapicore.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,9 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateBotDto {
+public class BotDto {
 
+  private Long id;
+  private Long companyId;
   private String apiKey;
   private String webhookPath;
-
+  private boolean active;
 }

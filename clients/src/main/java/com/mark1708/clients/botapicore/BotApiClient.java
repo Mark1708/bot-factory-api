@@ -1,19 +1,19 @@
-package com.mark1708.botfactorycore.client;
+package com.mark1708.botapicore;
 
-import com.mark1708.botfactorycore.model.bot.BotDto;
-import com.mark1708.botfactorycore.model.bot.CreateBotDto;
+import com.mark1708.botapicore.dto.BotDto;
+import com.mark1708.botapicore.dto.CreateBotDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient("bot-api-core")
+@FeignClient(name = "bot-api-core", path = "/api/v1/factory")
 public interface BotApiClient {
 
-  @PostMapping("/api/v1/factory")
+  @PostMapping
   BotDto createBot(@RequestBody CreateBotDto createBotDto);
 
-  @PutMapping("/api/v1/factory/{id}")
+  @PutMapping("/{id}")
   BotDto updateBot(@PathVariable(name = "id") Long id, @RequestBody BotDto botDto);
 }
