@@ -38,6 +38,12 @@ public class Subscription {
   @Column(name = "active")
   private boolean active;
 
+  @Column(name = "need_notify")
+  private boolean needNotify;
+
+  @Column(name = "notified")
+  private boolean notified;
+
   @Column(name = "trial_period_start_date")
   private LocalDateTime trialPeriodStartDate;
 
@@ -47,12 +53,12 @@ public class Subscription {
   @Column(name = "subscribe_after_trial")
   private boolean subscribeAfterTrial;
 
+  @Column(name = "trial_count")
+  private Long trialCount;
+
   @Column(name = "available_count")
   private Long availableCount;
 
-  @Column(name = "current_period_start_date")
-  private LocalDateTime currentPeriodStartDate;
-
-  @Column(name = "current_period_end_date")
-  private LocalDateTime currentPeriodEndDate;
+  @Column(name = "end_date")
+  private LocalDateTime endDate;
 }

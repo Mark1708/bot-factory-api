@@ -17,14 +17,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
-import org.springframework.data.annotation.Transient;
 
 @Data
 @Entity
 @NoArgsConstructor
-//@AllArgsConstructor
+@AllArgsConstructor
 @Table(name = "users")
 public class User {
 
@@ -81,17 +78,4 @@ public class User {
   )
   private List<Project> projects;
 
-  public User(Long id, String surname, String name, String username, String email, String password,
-      String salt, LocalDateTime registeredAt, boolean enabled, boolean emailVerified) {
-    this.id = id;
-    this.surname = surname;
-    this.name = name;
-    this.username = username;
-    this.email = email;
-    this.password = password;
-    this.salt = salt;
-    this.registeredAt = registeredAt;
-    this.enabled = enabled;
-    this.emailVerified = emailVerified;
-  }
 }

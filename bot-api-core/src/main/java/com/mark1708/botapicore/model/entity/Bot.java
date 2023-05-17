@@ -24,6 +24,9 @@ public class Bot {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @Column(name = "company_id")
+  private Long companyId;
+
   @Column(name = "api_key")
   private String apiKey;
 

@@ -1,13 +1,13 @@
 package com.mark1708.botfactorycore.facade.impl;
 
-import com.mark1708.botfactorycore.client.BotApiClient;
+import com.mark1708.clients.botapicore.BotApiClient;
 import com.mark1708.botfactorycore.converter.CompanyConverter;
 import com.mark1708.botfactorycore.converter.ProjectConverter;
 import com.mark1708.botfactorycore.converter.UserConverter;
 import com.mark1708.botfactorycore.exception.http.BadRequestException;
 import com.mark1708.botfactorycore.facade.ProjectFacade;
-import com.mark1708.botfactorycore.model.bot.BotDto;
-import com.mark1708.botfactorycore.model.bot.CreateBotDto;
+import com.mark1708.clients.botapicore.dto.BotDto;
+import com.mark1708.clients.botapicore.dto.CreateBotDto;
 import com.mark1708.botfactorycore.model.company.CompanyDto;
 import com.mark1708.botfactorycore.model.entity.Company;
 import com.mark1708.botfactorycore.model.entity.Project;
@@ -91,9 +91,14 @@ public class ProjectFacadeImpl implements ProjectFacade {
     project.setBgColor("1976D2");
     project.setTextColor("ffffff");
     project.setActive(true);
-
+    Project newProject = projectService.saveProject(project);
+    // TODO: добавить админов компании в проект
+    userService.getUsersByCompanyId(createProjectDto.getCompanyId())
+        .stream().map(userConverter::toDto)
+        .filter(userDto -> userDto.getRoles().contains("ROLE_ADMIN"))
+        .forEach(userDto -> projectService.addUserToProject(newProject.getId(), userDto.getId()));
     return projectConverter.toDto(
-        projectService.saveProject(project)
+        newProject
     );
   }
 
@@ -111,13 +116,17 @@ public class ProjectFacadeImpl implements ProjectFacade {
       if (project.getBotId() == null) {
         // TODO: создать бота
         BotDto bot = botApiClient.createBot(
-            new CreateBotDto(projectDto.getApiKey(), projectDto.getWebhookPath())
+            new CreateBotDto(
+                project.getCompany().getId(),
+                projectDto.getApiKey(),
+                projectDto.getWebhookPath()
+            )
         );
         projectDto.setBotId(bot.getId());
       } else {
         // TODO: обновить данные бота
         BotDto botDto = botApiClient.updateBot(project.getBotId(),
-            new BotDto(project.getBotId(), projectDto.getApiKey(), projectDto.getWebhookPath(),
+            new BotDto(project.getBotId(), project.getCompany().getId(), projectDto.getApiKey(), projectDto.getWebhookPath(),
                 projectDto.isActive())
         );
       }
@@ -158,6 +167,7 @@ public class ProjectFacadeImpl implements ProjectFacade {
 
   @Override
   public boolean deleteProject(Long id) {
+    // TODO: удалить бота, данные статистики, файлы
     return projectService.deleteProjectById(id);
   }
 }

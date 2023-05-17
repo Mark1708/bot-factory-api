@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/invitations")
+@RequestMapping("/api/v1/factory/invitations")
 public class InvitationController {
 
   private final InvitationFacade invitationFacade;
@@ -49,4 +49,6 @@ public class InvitationController {
     log.debug("Delete invitation: [{}]", id);
     return invitationFacade.deleteInvitation(id);
   }
+
+  // TODO: список приглашений на страницу компании в виде таблицы (дата создания, почта, статус)
 }

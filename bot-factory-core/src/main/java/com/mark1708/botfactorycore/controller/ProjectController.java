@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/projects")
+@RequestMapping("/api/v1/factory/projects")
 public class ProjectController {
 
   private final ProjectFacade projectFacade;

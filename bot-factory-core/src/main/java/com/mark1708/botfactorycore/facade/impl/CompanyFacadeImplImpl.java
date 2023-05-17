@@ -75,9 +75,12 @@ public class CompanyFacadeImplImpl implements CompanyFacade {
   @Override
   public CompanyDto createCompany(CreateCompanyDto createCompanyDto) {
     companyService.findCompanyBySlug(createCompanyDto.getSlug())
-        .orElseThrow(() -> new BadRequestException(
-            String.format("Company with slug - %s, already exist!", createCompanyDto.getSlug())
-        ));
+        .ifPresent(s -> {
+              throw new BadRequestException(
+                  String.format("Company with slug - %s, already exist!", createCompanyDto.getSlug())
+              );
+            }
+        );
 
     userService.findUserById(createCompanyDto.getOwnerId())
         .orElseThrow(() ->

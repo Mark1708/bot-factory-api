@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/companies")
+@RequestMapping("/api/v1/factory/companies")
 @OpenAPIDefinition(
     info = @Info(
         title = "Company Controller",
@@ -73,6 +73,7 @@ public class CompanyController {
     return companyFacade.transferCompany(id, transferCompanyDto);
   }
 
+  // TODO: добавить на страницу о компании (с возможностью удаления и редактирования по нажатию {})
   @GetMapping("/{id}/users")
   public List<UserSmallDto> getCompanyUsers(@PathVariable Long id) {
     return companyFacade.getCompanyUsers(id);
@@ -92,4 +93,6 @@ public class CompanyController {
   public List<InvitationDto> getCompanyInvitations(@PathVariable Long id) {
     return companyFacade.getCompanyInvitations(id);
   }
+
+  // TODO: Статистика по компании (кол-во проектов, кол-во сотрудников, прибыль за месяц/год)
 }

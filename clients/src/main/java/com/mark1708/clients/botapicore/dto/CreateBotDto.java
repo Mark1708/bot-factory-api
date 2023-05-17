@@ -1,4 +1,4 @@
-package com.mark1708.botapicore.dto;
+package com.mark1708.clients.botapicore.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

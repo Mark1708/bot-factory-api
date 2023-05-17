@@ -32,7 +32,7 @@ public class Tariff {
   private Service service;
 
   @Column(name = "time_unit")
-  private Integer time_unit;
+  private Integer timeUnit;
 
   @Column(name = "value")
   private Long value;

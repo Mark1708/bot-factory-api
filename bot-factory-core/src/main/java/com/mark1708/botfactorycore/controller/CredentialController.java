@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/users/{id}/credentials")
+@RequestMapping("/api/v1/factory/users/{id}/credentials")
 @OpenAPIDefinition(
     info = @Info(
         title = "Credential Controller",

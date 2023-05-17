@@ -1,9 +1,9 @@
 package com.mark1708.botapicore.controller.factory;
 
-import com.mark1708.botapicore.model.bot.BotDto;
-import com.mark1708.botapicore.model.bot.CreateBotDto;
 import com.mark1708.botapicore.model.entity.Bot;
 import com.mark1708.botapicore.repository.BotRepository;
+import com.mark1708.clients.botapicore.dto.BotDto;
+import com.mark1708.clients.botapicore.dto.CreateBotDto;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
