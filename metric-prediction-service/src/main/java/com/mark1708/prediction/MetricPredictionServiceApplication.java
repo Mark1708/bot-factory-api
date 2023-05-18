@@ -1,6 +1,6 @@
 package com.mark1708.prediction;
 
-import com.mark1708.prediction.service.SparkMLService;
+import com.mark1708.prediction.service.TimeSeriesForecastService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +20,9 @@ import org.springframework.context.annotation.Bean;
 public class MetricPredictionServiceApplication {
 
   private final SparkSession sparkSession;
-  private final SparkMLService sparkMLService;
+//  private final SparkMLService sparkMLService;
+//  private final PredictionService predictionService;
+  private final TimeSeriesForecastService timeSeriesForecastService;
 
   public static void main(String[] args) {
     SpringApplication.run(MetricPredictionServiceApplication.class, args);
@@ -39,12 +41,14 @@ public class MetricPredictionServiceApplication {
           .option("inferSchema", "true")
           .option("header", "true")
           .schema(schema)
-          .load("src/main/resources/PJME_hourly.csv");
+          .load("/Users/mark/Documents/bot-factory/bot-factory-api/metric-prediction-service/src/main/resources/user_activities.csv");
 
-      List<PredictedItem> result = sparkMLService.predictData("testModel", originalData, true);
-      result.forEach(item -> {
-        log.info("{}\t{}", item.getTimeStamp(), item.getValue());
-      });
+//      List<PredictedItem> result = sparkMLService.predictData("testModel", originalData, true);
+//      List<PredictedItem> result = predictionService.predict(originalData, 5);
+      List<PredictedItem> result = timeSeriesForecastService.predict(originalData, 5);
+//      result.forEach(item -> {
+//        log.info("{}\t{}", item.getTimeStamp(), item.getValue());
+//      });
     };
   }
 }
