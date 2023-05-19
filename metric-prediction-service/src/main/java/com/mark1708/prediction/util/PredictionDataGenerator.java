@@ -1,8 +1,5 @@
 package com.mark1708.prediction.util;
 
-import static org.apache.spark.sql.functions.max;
-import static org.apache.spark.sql.functions.min;
-
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -22,7 +19,11 @@ public class PredictionDataGenerator {
   private final String targetName;
   private final SparkSession sparkSession;
 
-  public PredictionDataGenerator(SparkSession sparkSession, String dateTimeName, String targetName) {
+  public PredictionDataGenerator(
+      SparkSession sparkSession,
+      String dateTimeName,
+      String targetName
+  ) {
     this.sparkSession = sparkSession;
     this.dateTimeName = dateTimeName;
     this.targetName = targetName;

@@ -1,31 +1,27 @@
-package com.mark1708.prediction.config;
+package com.mark1708.prediction.configuration;
 
 import static com.mark1708.prediction.util.UdfMethods.dayInMonth;
 import static com.mark1708.prediction.util.UdfMethods.isWeekend;
 
-import java.sql.Timestamp;
-import java.time.DayOfWeek;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaSparkContext;
-import org.apache.spark.sql.Column;
 import org.apache.spark.sql.SparkSession;
-import org.apache.spark.sql.api.java.UDF0;
-import org.apache.spark.sql.api.java.UDF1;
-import org.apache.spark.sql.api.java.UDF2;
 import org.apache.spark.sql.types.DataTypes;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 @Slf4j
 @Configuration
-public class SparkConfiguration {
+public class ForecastSparkConfiguration {
 
   @Value("${spring.application.name}")
   private String appName;
 
   @Bean
+  @Primary
   public SparkConf sparkConf() {
     log.info("SparkConf Bean");
     return new SparkConf(true)

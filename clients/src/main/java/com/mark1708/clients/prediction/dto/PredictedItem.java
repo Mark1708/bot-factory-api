@@ -1,5 +1,6 @@
-package com.mark1708.prediction;
+package com.mark1708.prediction.model.entity;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PredictedItem {
+public class PredictedItem implements Serializable {
 
   private LocalDateTime timeStamp;
   private double value;
