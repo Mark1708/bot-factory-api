@@ -34,4 +34,6 @@ public interface ProjectService {
   List<Project> getProjectsByCompanyId(Long companyId);
 
   boolean deleteProjectById(Long id);
+
+  boolean isExistByApiKey(String apiKey);
 }

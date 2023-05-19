@@ -34,9 +34,9 @@ public interface UserService {
 
   User saveUser(User user);
 
-  User addRoleToUser(Long id, Role role);
+  User addRoleToUser(Long id, Long roleId);
 
-  User deleteRoleFromUser(Long id, Role role);
+  User deleteRoleFromUser(Long id, Long roleId);
 
   List<User> getUsersByCompanyId(Long companyId);
 }

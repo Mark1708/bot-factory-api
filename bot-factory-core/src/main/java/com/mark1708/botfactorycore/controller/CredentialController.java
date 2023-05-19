@@ -2,10 +2,8 @@ package com.mark1708.botfactorycore.controller;
 
 import com.mark1708.botfactorycore.facade.CredentialFacade;
 import com.mark1708.botfactorycore.model.user.CredentialDto;
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
@@ -21,13 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/factory/users/{id}/credentials")
-@OpenAPIDefinition(
-    info = @Info(
-        title = "Credential Controller",
-        version = "1.0",
-        description = "Документация к Users Credential API"
-    )
-)
 public class CredentialController {
 
   private final CredentialFacade credentialFacade;

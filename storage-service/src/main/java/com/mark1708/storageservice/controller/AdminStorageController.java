@@ -12,13 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("/api/v1/admin")
-@OpenAPIDefinition(
-    info = @Info(
-        title = "Admin Storage Controller",
-        version = "1.0",
-        description = "Controller for admin operations with Storage"
-    )
-)
 public class AdminStorageController {
 
 

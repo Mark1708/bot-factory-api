@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,5 +52,11 @@ public class FactoryTestController {
     BotDto newBotDto = new BotDto();
     BeanUtils.copyProperties(newBot, newBotDto);
     return newBotDto;
+  }
+
+  @DeleteMapping("/{id}")
+  public boolean deleteBot(@PathVariable Long id) {
+    botRepository.deleteById(id);
+    return true;
   }
 }

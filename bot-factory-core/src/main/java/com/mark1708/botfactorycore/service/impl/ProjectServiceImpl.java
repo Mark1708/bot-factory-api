@@ -100,4 +100,9 @@ public class ProjectServiceImpl implements ProjectService {
     }
     return true;
   }
+
+  @Override
+  public boolean isExistByApiKey(String apiKey) {
+    return repository.existsByApiKey(apiKey);
+  }
 }

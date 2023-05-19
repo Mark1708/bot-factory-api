@@ -34,6 +34,12 @@ public class ProjectController {
     return projectFacade.getProject(query, type);
   }
 
+  @GetMapping("/{apiKey}/check")
+  public boolean isExistApiKey(@PathVariable String apiKey) {
+    log.debug("Is  exist by api key: [{}]", apiKey);
+    return projectFacade.isExistByApiKey(apiKey);
+  }
+
   @PostMapping
   public ProjectDto createProject(@RequestBody CreateProjectDto createProjectDto) {
     log.debug("Create project: [{}]", createProjectDto);
@@ -48,7 +54,7 @@ public class ProjectController {
 
   @DeleteMapping("/{id}")
   public boolean deleteProject(@PathVariable Long id) {
-    log.debug("Delete project: [{}, {}]", id);
+    log.debug("Delete project: [{}]", id);
     return projectFacade.deleteProject(id);
   }
 
@@ -57,6 +63,8 @@ public class ProjectController {
     log.debug("Get project's users: [{}]", id);
     return projectFacade.getProjectUsers(id);
   }
+
+  // TODO: оплаты для таблицы - список (дата, название услуги, сумма)
 
   @GetMapping("/{id}/company")
   public CompanyDto getProjectCompany(@PathVariable Long id) {

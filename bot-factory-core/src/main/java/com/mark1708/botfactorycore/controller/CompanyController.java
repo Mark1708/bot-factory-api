@@ -8,8 +8,6 @@ import com.mark1708.botfactorycore.model.company.UpdateCompanyDto;
 import com.mark1708.botfactorycore.model.invitation.InvitationDto;
 import com.mark1708.botfactorycore.model.project.ProjectSmallDto;
 import com.mark1708.botfactorycore.model.user.UserSmallDto;
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
-import io.swagger.v3.oas.annotations.info.Info;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,13 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/factory/companies")
-@OpenAPIDefinition(
-    info = @Info(
-        title = "Company Controller",
-        version = "1.0",
-        description = "Документация к Company API"
-    )
-)
 public class CompanyController {
 
   private final CompanyFacade companyFacade;
@@ -89,10 +80,12 @@ public class CompanyController {
     return companyFacade.getCompanyProjects(id);
   }
 
+
+  // TODO: список приглашений на страницу компании в виде таблицы (дата создания, почта, статус)
   @GetMapping("/{id}/invitations")
   public List<InvitationDto> getCompanyInvitations(@PathVariable Long id) {
     return companyFacade.getCompanyInvitations(id);
   }
 
-  // TODO: Статистика по компании (кол-во проектов, кол-во сотрудников, прибыль за месяц/год)
+  // TODO: оплаты для таблицы - список (дата, название проекта, название услуги, сумма)
 }

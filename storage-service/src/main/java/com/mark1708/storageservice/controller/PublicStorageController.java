@@ -16,13 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/public")
-@OpenAPIDefinition(
-    info = @Info(
-        title = "Public Storage Controller",
-        version = "1.0",
-        description = "Controller for public operations with Storage"
-    )
-)
 public class PublicStorageController {
 
   private final StorageFacade storageFacade;

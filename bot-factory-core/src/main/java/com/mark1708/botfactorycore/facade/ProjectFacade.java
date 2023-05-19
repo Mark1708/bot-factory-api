@@ -15,6 +15,8 @@ public interface ProjectFacade {
 
   ProjectDto createProject(CreateProjectDto createProjectDto);
 
+  boolean isExistByApiKey(String apiKey);
+
   ProjectDto updateProject(Long id, ProjectDto project);
 
   List<UserSmallDto> getProjectUsers(Long id);

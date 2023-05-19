@@ -3,8 +3,7 @@ package com.mark1708.storageservice.controller;
 import com.mark1708.storageservice.facade.StorageFacade;
 import com.mark1708.storageservice.model.dto.FileDataDto;
 import com.mark1708.storageservice.model.dto.FileInfoDto;
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
-import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.Operation;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,18 +24,12 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/bot")
-@OpenAPIDefinition(
-    info = @Info(
-        title = "Bot Storage Controller",
-        version = "1.0",
-        description = "Controller for bot operations with Storage"
-    )
-)
 public class BotStorageController {
 
   private final StorageFacade storageFacade;
 
   @GetMapping("/{companyId}/{botId}")
+  @Operation(method = "Get files dto")
   public List<FileDataDto> getFiles(@PathVariable Long companyId, @PathVariable Long botId) {
     return storageFacade.getFilesByCompanyIdAndBotId(companyId, botId);
   }

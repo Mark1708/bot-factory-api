@@ -50,5 +50,4 @@ public class InvitationController {
     return invitationFacade.deleteInvitation(id);
   }
 
-  // TODO: список приглашений на страницу компании в виде таблицы (дата создания, почта, статус)
 }

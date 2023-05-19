@@ -92,7 +92,7 @@ public class ProjectFacadeImpl implements ProjectFacade {
     project.setTextColor("ffffff");
     project.setActive(true);
     Project newProject = projectService.saveProject(project);
-    // TODO: добавить админов компании в проект
+
     userService.getUsersByCompanyId(createProjectDto.getCompanyId())
         .stream().map(userConverter::toDto)
         .filter(userDto -> userDto.getRoles().contains("ROLE_ADMIN"))
@@ -102,7 +102,10 @@ public class ProjectFacadeImpl implements ProjectFacade {
     );
   }
 
-  // TODO: метод для проверки наличия API key для генерации нового
+  @Override
+  public boolean isExistByApiKey(String apiKey) {
+    return projectService.isExistByApiKey(apiKey);
+  }
 
   @Override
   public ProjectDto updateProject(Long id, ProjectDto projectDto) {
@@ -114,7 +117,6 @@ public class ProjectFacadeImpl implements ProjectFacade {
         projectDto.isActive() != project.isActive()
     ) {
       if (project.getBotId() == null) {
-        // TODO: создать бота
         BotDto bot = botApiClient.createBot(
             new CreateBotDto(
                 project.getCompany().getId(),
@@ -124,7 +126,6 @@ public class ProjectFacadeImpl implements ProjectFacade {
         );
         projectDto.setBotId(bot.getId());
       } else {
-        // TODO: обновить данные бота
         BotDto botDto = botApiClient.updateBot(project.getBotId(),
             new BotDto(project.getBotId(), project.getCompany().getId(), projectDto.getApiKey(), projectDto.getWebhookPath(),
                 projectDto.isActive())
@@ -167,7 +168,9 @@ public class ProjectFacadeImpl implements ProjectFacade {
 
   @Override
   public boolean deleteProject(Long id) {
-    // TODO: удалить бота, данные статистики, файлы
+    // TODO: удалить данные статистики, файлы
+    Project project = projectService.getProjectById(id);
+    boolean deleteBot = botApiClient.deleteBot(project.getBotId());
     return projectService.deleteProjectById(id);
   }
 }

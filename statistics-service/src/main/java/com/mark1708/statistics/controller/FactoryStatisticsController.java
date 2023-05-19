@@ -2,6 +2,7 @@ package com.mark1708.statistics.controller;
 
 import com.mark1708.clients.statistics.dto.TimeSeriesItemDto;
 import com.mark1708.statistics.facade.StatisticsFacade;
+import io.swagger.v3.oas.annotations.Operation;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class FactoryStatisticsController {
 
   private final StatisticsFacade statisticsFacade;
+
+
   @GetMapping("/{botId}/users")
+  @Operation(method = "Get statistics about users")
   public List<TimeSeriesItemDto> getUsersStatistics(
       @PathVariable Long botId,
       @RequestParam(name = "query") String query

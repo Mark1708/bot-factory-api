@@ -120,13 +120,13 @@ public class UserServiceImpl implements UserService {
 
   @Override
   @Transactional
-  public User addRoleToUser(Long id, Role role) {
+  public User addRoleToUser(Long id, Long roleId) {
     try {
-      repository.addRole(id, role.getId());
+      repository.addRole(id, roleId);
     } catch (Exception e) {
       e.printStackTrace();
       throw new BadRequestException(
-          String.format("User with id %d already has role with id %d!", id, role.getId())
+          String.format("User with id %d already has role with id %d!", id, roleId)
       );
     }
     return getUserById(id);
@@ -134,12 +134,12 @@ public class UserServiceImpl implements UserService {
 
   @Override
   @Transactional
-  public User deleteRoleFromUser(Long id, Role role) {
+  public User deleteRoleFromUser(Long id, Long roleId) {
     try {
-      repository.deleteRole(id, role.getId());
+      repository.deleteRole(id, roleId);
     } catch (Exception e) {
       throw new BadRequestException(
-          String.format("User with id %d has not role with id %d!", id, role.getId())
+          String.format("User with id %d has not role with id %d!", id, roleId)
       );
     }
     return getUserById(id);

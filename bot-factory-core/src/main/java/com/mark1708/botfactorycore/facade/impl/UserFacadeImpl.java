@@ -96,7 +96,7 @@ public class UserFacadeImpl implements UserFacade {
   public UserDto addUserRole(Long id, RoleDto roleDto) {
     Role role = roleService.getRoleByName(roleDto.getName());
     return userConverter.toDto(
-        userService.addRoleToUser(id, role)
+        userService.addRoleToUser(id, role.getId())
     );
   }
 
@@ -104,7 +104,7 @@ public class UserFacadeImpl implements UserFacade {
   public UserDto deleteUserRole(Long id, RoleDto roleDto) {
     Role role = roleService.getRoleByName(roleDto.getName());
     return userConverter.toDto(
-        userService.deleteRoleFromUser(id, role)
+        userService.deleteRoleFromUser(id, role.getId())
     );
   }
 

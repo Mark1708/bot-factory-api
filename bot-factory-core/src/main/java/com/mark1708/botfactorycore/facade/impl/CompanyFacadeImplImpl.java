@@ -114,7 +114,8 @@ public class CompanyFacadeImplImpl implements CompanyFacade {
     Company company = companyService.getCompanyById(id);
     company.setOwnerId(newOwner.getId());
 
-    // TODO: проверить, что пользователь является сотрудником компании и поменять ему роль
+    companyService.getCompanyByUserId(newOwner.getId());
+    userService.addRoleToUser(newOwner.getId(), 2L);
 
     projectService.getCompanyProjectsAvailableForUserAdd(id, newOwner.getId())
         .forEach(

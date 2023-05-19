@@ -42,4 +42,6 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
       + "                WHERE pu.project_id = p.id)", nativeQuery = true)
   List<Project> getCompanyProjectsAvailableForUserAdd(@Param("companyId") Long companyId,
       @Param("userId") Long userId);
+
+  boolean existsByApiKey(String apiKey);
 }

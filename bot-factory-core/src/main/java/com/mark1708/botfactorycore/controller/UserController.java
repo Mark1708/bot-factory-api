@@ -6,10 +6,8 @@ import com.mark1708.botfactorycore.model.project.ProjectDto;
 import com.mark1708.botfactorycore.model.role.RoleDto;
 import com.mark1708.botfactorycore.model.user.UserDto;
 import com.mark1708.botfactorycore.model.user.UserInfoDto;
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import java.util.List;
@@ -29,13 +27,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/factory/users")
-@OpenAPIDefinition(
-    info = @Info(
-        title = "User Controller",
-        version = "1.0",
-        description = "Документация к Users API"
-    )
-)
 public class UserController {
 
   private final UserFacade userFacade;

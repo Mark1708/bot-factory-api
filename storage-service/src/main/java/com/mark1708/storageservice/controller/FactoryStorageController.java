@@ -25,13 +25,6 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/factory")
-@OpenAPIDefinition(
-    info = @Info(
-        title = "Factory Storage Controller",
-        version = "1.0",
-        description = "Controller for bot factory operations with Storage"
-    )
-)
 public class FactoryStorageController {
 
   private final StorageFacade storageFacade;
