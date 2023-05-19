@@ -1,4 +1,4 @@
-package com.mark1708.prediction.model.entity;
+package com.mark1708.clients.prediction.dto;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
