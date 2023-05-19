@@ -5,7 +5,7 @@ spring:
   application:
     name: config-service
   profiles:
-    active: dev,native
+    active: ${PROFILES:dev,native}
   cloud:
     loadbalancer:
       ribbon:
@@ -16,7 +16,7 @@ spring:
           uri: ${GIT_CONFIG:https://github.com/Mark1708/bot-factory-api-config.git}
           search-paths:
             - "{application}/{profile}"
-          default-label: master
+          default-label: main
           clone-on-start: true
           username: ${GIT_USERNAME}
           password: ${GIT_PASS}
@@ -36,7 +36,6 @@ management:
   endpoint:
     health:
       show-details: always
-
 
 
 logging:

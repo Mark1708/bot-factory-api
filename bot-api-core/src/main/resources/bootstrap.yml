@@ -2,7 +2,7 @@ spring:
   application:
     name: bot-api-core
   profiles:
-    active: dev
+    active: ${PROFILES:dev}
   cloud:
     config:
       discovery:

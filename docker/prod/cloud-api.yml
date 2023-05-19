@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+
+  eureka-server:
+    image: ghcr.io/mark1708/bf-eureka-server:v1.0.0
+    networks:
+      - backend
+    deploy:
+      restart_policy:
+        condition: on-failure
+      mode: replicated
+      replicas: 1
+
+  config-server:
+    image: ghcr.io/mark1708/bf-config-server:v1.0.0
+    networks:
+      - backend
+    deploy:
+      restart_policy:
+        condition: on-failure
+      mode: replicated
+      replicas: 1
+
+  gateway-server:
+    image: ghcr.io/mark1708/bf-gateway-server:v1.0.0
+    networks:
+      - npm-public
+      - backend
+    deploy:
+      restart_policy:
+        condition: on-failure
+      mode: replicated
+      replicas: 1
+
+networks:
+  backend:
+    external: true
+  npm-public:
+    external: true
