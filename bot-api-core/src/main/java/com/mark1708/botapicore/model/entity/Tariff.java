@@ -11,12 +11,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
 @Entity
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "tariffs")
@@ -29,7 +31,7 @@ public class Tariff {
   @ManyToOne
   @ToString.Exclude
   @JoinColumn(name = "service_id", referencedColumnName = "id")
-  private Service service;
+  private SubService service;
 
   @Column(name = "time_unit")
   private Integer timeUnit;

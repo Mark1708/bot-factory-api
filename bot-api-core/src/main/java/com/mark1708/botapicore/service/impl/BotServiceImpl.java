@@ -27,4 +27,25 @@ public class BotServiceImpl implements BotService {
   public boolean isValidKey(String apiKey) {
     return repository.findBotByApiKey(apiKey).isPresent();
   }
+
+  @Override
+  public Bot saveBot(Bot bot) {
+    return repository.saveAndFlush(bot);
+  }
+
+  @Override
+  public Bot getBotById(Long id) {
+    return repository.findById(id)
+        .orElseThrow(() ->  new ResourceNotFoundException(ResourceType.BOT, QueryType.ID, id));
+  }
+
+  @Override
+  public boolean deleteBotById(Long id) {
+    try {
+      repository.deleteById(id);
+      return true;
+    } catch (Exception e) {
+      throw new ResourceNotFoundException(ResourceType.BOT, QueryType.ID, id);
+    }
+  }
 }

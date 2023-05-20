@@ -7,4 +7,10 @@ public interface BotService {
   Bot getBotByApiKey(String apiKey);
 
   boolean isValidKey(String apiKey);
+
+  Bot saveBot(Bot bot);
+
+  Bot getBotById(Long id);
+
+  boolean deleteBotById(Long id);
 }

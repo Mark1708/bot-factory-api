@@ -28,7 +28,7 @@ public class Subscription {
   @ManyToOne
   @ToString.Exclude
   @JoinColumn(name = "service_id", referencedColumnName = "id")
-  private Service service;
+  private SubService service;
 
   @ManyToOne
   @ToString.Exclude
