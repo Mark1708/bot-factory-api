@@ -60,12 +60,12 @@ public class FeatureGenerator {
     // Группировка по году
     WindowSpec yearDataWindow = Window.partitionBy(year(dateTime))
         .orderBy(target.desc());
-    // Сортировка в порядке убывания
-    WindowSpec askOrderedWindow = Window.orderBy(dateTime.asc());
+    // Сортировка в порядке возрастания
+    WindowSpec ascOrderedWindow = Window.orderBy(dateTime.asc());
 
     // Добавляем основные признаки
     Dataset<Row> datasetWithFeatures = this.inputData
-        .orderBy(dateTime)
+        .orderBy(dateTime.asc())
         .withColumn("hour", hour(dateTime))
         .withColumn("month", month(dateTime))
         .withColumn("year", year(dateTime))
@@ -92,10 +92,11 @@ public class FeatureGenerator {
       String movingAvgColName = getMovingAvgColName(lag);
       Column lagCol = col(lagColName);
       datasetWithFeatures = datasetWithFeatures
-          .withColumn(lagColName, lag(target, 1).over(askOrderedWindow))
+          .withColumn("temp", lag(target, lag).over(ascOrderedWindow))
+          .withColumn(lagColName, when(col("temp").isNull(), lit(0)).otherwise(col("temp")))
+          .drop("temp")
           .withColumn(movingAvgColName, avg(target).over(Window.rowsBetween(-1, 0)))
-          .withColumn(trendColName,
-              when(lagCol.isNull(), lit(null)).otherwise(target.minus(lagCol)));
+          .withColumn(trendColName, target.minus(lagCol));
     }
 
     return datasetWithFeatures

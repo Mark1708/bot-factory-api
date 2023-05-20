@@ -1,5 +1,6 @@
 package com.mark1708.prediction.scheduler;
 
+import cats.kernel.instances.order;
 import com.mark1708.prediction.exception.PredictionException;
 import com.mark1708.prediction.exception.http.BadRequestException;
 import com.mark1708.prediction.model.Order;
@@ -28,36 +29,42 @@ public class PredictionScheduler {
 
   private boolean isProcessing = false;
 
-  @Scheduled(fixedDelay = 30000)
+  @Scheduled(fixedDelay = 10000)
   public void processing() {
     if (!isProcessing) {
-      isProcessing = true;
       Optional<Order> orderOpt = orderService.findLastWaitingOrder();
       if (orderOpt.isPresent()) {
+        isProcessing = true;
         Order order = orderOpt.get();
         log.info("Start forecasting with order id [{}]", order.getId());
         order.setStartAt(LocalDateTime.now());
         order.setStatus(1);
         order = orderService.saveOrder(order);
-        Dataset<Row> originalData = getData(order);
-        if (originalData.count() > 30) {
-          orderService.updateStatus(order.getId(), 2);
-          try {
-            List<PredictedItem> result = forecastService.predict(originalData, order.getId(),
-                order.getDays());
-            order.setStatus(3);
-            order.setEndAt(LocalDateTime.now());
-            order.setResult(result);
-            orderService.saveOrder(order);
-          } catch (PredictionException e) {
-            e.printStackTrace();
-            orderService.updateStatus(order.getId(), 4);
+        try {
+          Dataset<Row> originalData = getData(order);
+          if (originalData.count() > 30) {
+            orderService.updateStatus(order.getId(), 2);
+            try {
+              List<PredictedItem> result = forecastService.predict(originalData, order.getId(),
+                  order.getDays());
+              log.info("{}", result);
+              order.setStatus(3);
+              order.setEndAt(LocalDateTime.now());
+              order.setResult(result);
+              orderService.saveOrder(order);
+            } catch (PredictionException e) {
+              e.printStackTrace();
+              orderService.updateStatus(order.getId(), 4);
+            }
+          } else {
+            orderService.updateStatus(order.getId(), 5);
           }
-        } else {
-          orderService.updateStatus(order.getId(), 5);
+        } catch (BadRequestException e) {
+          e.printStackTrace();
+          orderService.updateStatus(order.getId(), 4);
         }
+        isProcessing = false;
       }
-      isProcessing = false;
     }
   }
 
