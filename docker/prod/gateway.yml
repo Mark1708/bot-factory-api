@@ -1,0 +1,24 @@
+services:
+
+  gateway-server:
+    image: ghcr.io/mark1708/bf-gateway-server:v1.1.0
+    environment:
+      - PROFILES=prod
+      - EUREKA_SERVER=http://eureka-server:8761/eureka
+    depends_on:
+      - eureka-server
+      - config-server
+    networks:
+      - npm-public
+      - backend
+    deploy:
+      restart_policy:
+        condition: on-failure
+      mode: replicated
+      replicas: 1
+
+networks:
+  backend:
+    external: true
+  npm-public:
+    external: true

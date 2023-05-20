@@ -3,25 +3,93 @@ version: '3'
 services:
 
   bot-api-core:
-    image: ghcr.io/mark1708/bf-bot-api-core:v1.0.0
+    image: ghcr.io/mark1708/bf-bot-api-core:v1.2.4
+    environment:
+      - PROFILES=prod
+      - EUREKA_SERVER=http://eureka-server:8761/eureka
     networks:
       - backend
+      - npm-public
     deploy:
       restart_policy:
         condition: on-failure
       mode: replicated
       replicas: 1
+    volumes:
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
 
   bot-factory-core:
-    image: ghcr.io/mark1708/bf-bot-factory-core:v1.0.0
+    image: ghcr.io/mark1708/bf-bot-factory-core:v1.3.1
+    environment:
+      - PROFILES=prod
+      - EUREKA_SERVER=http://eureka-server:8761/eureka
+      - OAUTH_CLIENT_SECRET=<SECRET>
     networks:
       - backend
+      - npm-public
     deploy:
       restart_policy:
         condition: on-failure
       mode: replicated
       replicas: 1
+    volumes:
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+
+  statistics-service:
+    image: ghcr.io/mark1708/bf-statistics-service:v1.0.0
+    environment:
+      - PROFILES=prod
+      - EUREKA_SERVER=http://eureka-server:8761/eureka
+    networks:
+      - backend
+      - npm-public
+    deploy:
+      restart_policy:
+        condition: on-failure
+      mode: replicated
+      replicas: 1
+    volumes:
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+
+  metric-prediction-service:
+    image: ghcr.io/mark1708/bf-metric-prediction-service:v1.1.1
+    environment:
+      - PROFILES=prod
+      - EUREKA_SERVER=http://eureka-server:8761/eureka
+    networks:
+      - backend
+      - npm-public
+    deploy:
+      restart_policy:
+        condition: on-failure
+      mode: replicated
+      replicas: 1
+    volumes:
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+
+  storage-service:
+    image: ghcr.io/mark1708/bf-storage-service:v1.0.0
+    environment:
+      - PROFILES=prod
+      - EUREKA_SERVER=http://eureka-server:8761/eureka
+    networks:
+      - backend
+      - npm-public
+    deploy:
+      restart_policy:
+        condition: on-failure
+      mode: replicated
+      replicas: 1
+    volumes:
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
 
 networks:
   backend:
+    external: true
+  npm-public:
     external: true
