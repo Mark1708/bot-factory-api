@@ -113,7 +113,7 @@
             <to>
               <tags>
                 <tag>latest</tag>
-                <tag>${image-version}</tag>
+<!--                <tag>${image-version}</tag>-->
               </tags>
             </to>
           </configuration>
