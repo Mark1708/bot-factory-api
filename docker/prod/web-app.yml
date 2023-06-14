@@ -1,7 +1,5 @@
 version: '3'
-
 services:
-
   web-app:
     image: ghcr.io/mark1708/bf-quasar-app:v1.0.3
     networks:

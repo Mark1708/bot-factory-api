@@ -19,8 +19,11 @@
     <module>storage-service</module>
     <module>statistics-service</module>
     <module>metric-prediction-service</module>
+    <module>event-tracker-service</module>
+    <module>notification-service</module>
 
     <module>clients</module>
+    <module>kafka</module>
   </modules>
     
   <properties>
@@ -113,7 +116,7 @@
             <to>
               <tags>
                 <tag>latest</tag>
-<!--                <tag>${image-version}</tag>-->
+                <tag>${image-version}</tag>
               </tags>
             </to>
           </configuration>

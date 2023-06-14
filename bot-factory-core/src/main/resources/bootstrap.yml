@@ -8,6 +8,10 @@ spring:
       discovery:
         service-id: config-service
         enabled: true
+  kafka:
+    bootstrap-servers: ${BROKER_HOST:localhost}:${BROKER_PORT:9092}
+    groupId: telegram
+    topic: notification
 
 eureka:
   client:

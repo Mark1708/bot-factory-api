@@ -7,9 +7,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
-@EnableFeignClients(basePackages = "com.mark1708")
+@EnableFeignClients
 @EnableEurekaClient
-@SpringBootApplication
+@SpringBootApplication(
+    scanBasePackages = {
+        "com.mark1708.kafka",
+        "com.mark1708.clients",
+        "com.mark1708.botfactorycore",
+    }
+)
 @OpenAPIDefinition(
     info = @Info(
         title = "Bot Factory Core",

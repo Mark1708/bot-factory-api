@@ -17,3 +17,11 @@ GRANT ALL PRIVILEGES ON DATABASE bfa_statistics_db TO bfa_statistics;
 CREATE USER bfa_prediction WITH PASSWORD '44wpBegekphV1vf0YC';
 CREATE DATABASE bfa_prediction_db;
 GRANT ALL PRIVILEGES ON DATABASE bfa_prediction_db TO bfa_prediction;
+
+CREATE USER bfa_tracker WITH PASSWORD '44wpBegekphV1vf0YC';
+CREATE DATABASE bfa_tracker_db;
+GRANT ALL PRIVILEGES ON DATABASE bfa_tracker_db TO bfa_tracker;
+
+CREATE USER bfa_notification WITH PASSWORD '44wpBegekphV1vf0YC';
+CREATE DATABASE bfa_notification_db;
+GRANT ALL PRIVILEGES ON DATABASE bfa_notification_db TO bfa_notification;
