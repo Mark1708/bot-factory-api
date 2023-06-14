@@ -64,10 +64,11 @@ public class TimeSeriesForecastServiceImpl implements TimeSeriesForecastService 
       List<String> featureColumns = FeatureGenerator.getFeatures(lags);
 
       // Инициализируем Pipeline
-      Pipeline pipeline = getNewPipeline(targetName, featureColumns.toArray(String[]::new));
+      Pipeline pipeline = getPipeline(targetName, featureColumns.toArray(String[]::new));
 
       for (int i = 0; i < days; i++) {
-        log.info("[{}] Start forecasting of day {} [from {} to {}]", orderId, i + 1, fromDate, toDate);
+        log.info("[{}] Start forecasting of day {} [from {} to {}]", orderId, i + 1, fromDate,
+            toDate);
         // Генерируем данные для предсказания
         Dataset<Row> dateTimeRange = predictionDataGenerator.generate(fromDate, toDate);
 
@@ -116,7 +117,7 @@ public class TimeSeriesForecastServiceImpl implements TimeSeriesForecastService 
     }
   }
 
-  private Pipeline getNewPipeline(String labelName, String[] featureColumns) {
+  private Pipeline getPipeline(String labelName, String[] featureColumns) {
     // Преобразователь (Transformer), который принимает данные и возвращает преобразованные, с добавлением нового
     // столбца который является векторным представлением всех фичей (функций)
     VectorAssembler assembler = new VectorAssembler()
