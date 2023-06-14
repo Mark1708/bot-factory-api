@@ -1,7 +1,6 @@
 package com.mark1708.botfactorycore.controller;
 
-import com.mark1708.clients.tracker.ClickerTrackerClient;
-import com.mark1708.clients.tracker.UtmTrackerClient;
+import com.mark1708.clients.tracker.EventTrackerClient;
 import com.mark1708.clients.tracker.dto.ClickerInfo;
 import com.mark1708.clients.tracker.dto.CreateClickerDto;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/tracker")
 public class TrackerController {
-
-  private final UtmTrackerClient utmTrackerClient;
-  private final ClickerTrackerClient clickerTrackerClient;
+  private final EventTrackerClient eventTrackerClient;
 
   @PostMapping("utm/{botId}")
   public String generateLink(
@@ -31,7 +28,7 @@ public class TrackerController {
       @RequestParam(name = "utm_content", required = false) String content,
       @RequestParam(name = "utm_term", required = false) String term
   ) {
-    return utmTrackerClient.generateLink(botId, source, medium, campaign, content, term);
+    return eventTrackerClient.generateLink(botId, source, medium, campaign, content, term);
   }
 
   @PostMapping("clicker/{botId}")
@@ -39,6 +36,6 @@ public class TrackerController {
       @PathVariable Long botId,
       @RequestBody CreateClickerDto createClickerDto
   ) {
-    return clickerTrackerClient.createClicker(botId, createClickerDto);
+    return eventTrackerClient.createClicker(botId, createClickerDto);
   }
 }

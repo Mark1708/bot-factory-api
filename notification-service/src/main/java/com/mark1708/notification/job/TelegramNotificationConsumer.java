@@ -2,35 +2,32 @@ package com.mark1708.notification.job;
 
 import com.mark1708.kafka.DeleteNewsletter;
 import com.mark1708.kafka.NewsletterMessage;
-import com.mark1708.notification.facade.NotificationFacade;
-import com.mark1708.notification.model.entity.Message;
 import com.mark1708.notification.model.entity.Newsletter;
 import com.mark1708.notification.model.enums.Messenger;
-import com.mark1708.notification.service.MessageService;
 import com.mark1708.notification.service.NewsletterService;
 import com.mark1708.notification.service.SenderService;
 import java.time.Instant;
-import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.kafka.annotation.KafkaHandler;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
 @RequiredArgsConstructor
+@KafkaListener(topics = "${spring.kafka.topic}", groupId = "telegram")
 public class TelegramNotificationConsumer implements NotificationConsumer {
 
   @Qualifier("telegramSenderService")
   private final SenderService senderService;
 
-  private NewsletterService newsletterService;
-  private MessageService messageService;
+  private final NewsletterService newsletterService;
 
   @Override
-  @KafkaListener(topics = "${spring.kafka.topic}", groupId = "telegram")
+  @KafkaHandler
   public void createNewsletter(NewsletterMessage message) {
     log.info("Received NewsletterMessage in group telegram {}", message);
 
@@ -43,7 +40,7 @@ public class TelegramNotificationConsumer implements NotificationConsumer {
             .build()
     );
 
-    List<Message> messages = senderService.sendNewsletter(newsletter, message);
+    senderService.sendNewsletter(newsletter, message);
 
 //    newsletterMessage.getDocuments().forEach(document -> {
 //      // Декодирование изображения из Base64
@@ -63,7 +60,7 @@ public class TelegramNotificationConsumer implements NotificationConsumer {
   }
 
   @Override
-  @KafkaListener(topics = "${spring.kafka.topic}", groupId = "telegram")
+  @KafkaHandler
   public void deleteNewsletter(DeleteNewsletter message) {
     log.info("Received DeleteNewsletter in group telegram {}", message);
    Optional<Newsletter> newsletterOpt = newsletterService.findNewsletterById(message.getNewsletterId());

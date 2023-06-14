@@ -26,6 +26,7 @@ public class TelegramSenderService implements SenderService {
           // TODO: send message request
           return Message.builder()
               .chatId(chatId)
+              .platformId("23542526")
               .newsletter(newsletter)
               .build();
         }).collect(Collectors.toList());

@@ -29,6 +29,9 @@ public class Message {
   @JoinColumn(name = "newsletter_id", referencedColumnName = "id")
   private Newsletter newsletter;
 
+  @Column(name = "platform_id")
+  private String platformId;
+
   @Column(name = "chat_id")
   private String chatId;
 }
