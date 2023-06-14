@@ -20,7 +20,7 @@ services:
     environment:
       - PROFILES=prod
       - GIT_USERNAME=Mark1708
-      - GIT_PASS=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
+      - GIT_PASS=<PASS>
       - EUREKA_SERVER=http://eureka-server:8761/eureka
     depends_on:
       - eureka-server
