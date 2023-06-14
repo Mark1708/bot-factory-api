@@ -1,0 +1,20 @@
+services:
+  db:
+    container_name: db-test
+    image: postgres:12.2-alpine
+    environment:
+      POSTGRES_USER: mark
+      POSTGRES_PASSWORD: password
+    volumes:
+      - ./init:/docker-entrypoint-initdb.d/
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+networks:
+  backend:
+    driver: bridge
+  postgres:
+    driver: bridge
