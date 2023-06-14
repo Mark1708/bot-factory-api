@@ -60,12 +60,12 @@ public class FeatureGenerator {
     // Группировка по году
     WindowSpec yearDataWindow = Window.partitionBy(year(dateTime))
         .orderBy(target.desc());
-    // Сортировка в порядке убывания
-    WindowSpec askOrderedWindow = Window.orderBy(dateTime.asc());
+    // Сортировка в порядке возрастания
+    WindowSpec ascOrderedWindow = Window.orderBy(dateTime.asc());
 
     // Добавляем основные признаки
     Dataset<Row> datasetWithFeatures = this.inputData
-        .orderBy(dateTime)
+        .orderBy(dateTime.asc())
         .withColumn("hour", hour(dateTime))
         .withColumn("month", month(dateTime))
         .withColumn("year", year(dateTime))
@@ -75,7 +75,7 @@ public class FeatureGenerator {
         .withColumn("day_of_month", dayofmonth(dateTime))
         .withColumn("week_of_year", weekofyear(dateTime))
         .withColumn("is_weekend", call_udf("isWeekend", dateTime))
-        .withColumn("day_in_month", call_udf("dayInMonth", dateTime))
+        .withColumn("days_in_month", call_udf("dayInMonth", dateTime))
         .withColumn("is_future", isnull(target))
         .withColumn("min_value_per_month", min(target).over(monthDataWindow))
         .withColumn("max_value_per_month", max(target).over(monthDataWindow))
@@ -92,10 +92,11 @@ public class FeatureGenerator {
       String movingAvgColName = getMovingAvgColName(lag);
       Column lagCol = col(lagColName);
       datasetWithFeatures = datasetWithFeatures
-          .withColumn(lagColName, lag(target, 1).over(askOrderedWindow))
+          .withColumn("temp", lag(target, lag).over(ascOrderedWindow))
+          .withColumn(lagColName, when(col("temp").isNull(), lit(0)).otherwise(col("temp")))
+          .drop("temp")
           .withColumn(movingAvgColName, avg(target).over(Window.rowsBetween(-1, 0)))
-          .withColumn(trendColName,
-              when(lagCol.isNull(), lit(null)).otherwise(target.minus(lagCol)));
+          .withColumn(trendColName, target.minus(lagCol));
     }
 
     return datasetWithFeatures
@@ -106,7 +107,7 @@ public class FeatureGenerator {
   public static List<String> getFeatures(List<Integer> lags) {
     List<String> mainFeatures = new java.util.ArrayList<>(
         List.of("hour", "month", "year", "quarter", "day_of_week",
-            "day_of_year", "day_of_month", "week_of_year", "is_weekend", "day_in_month",
+            "day_of_year", "day_of_month", "week_of_year", "is_weekend", "days_in_month",
             "min_value_per_month", "max_value_per_month", "mean_value_per_month",
             "min_value_per_year", "max_value_per_year", "mean_value_per_year"));
 

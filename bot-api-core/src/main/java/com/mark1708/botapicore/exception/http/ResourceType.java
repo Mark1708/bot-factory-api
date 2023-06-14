@@ -4,5 +4,10 @@ public enum ResourceType {
 
   ALL,
   USER,
-  ROLE, BOT,
+  ROLE,
+  BOT,
+  PAY,
+  SERVICE,
+  SUB,
+  TARIFF,
 }

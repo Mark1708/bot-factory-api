@@ -1,0 +1,583 @@
+{
+	"info": {
+		"_postman_id": "4d304298-e11c-4a09-b99c-8d8f8ef094d1",
+		"name": "Metric Prediction API",
+		"description": "Service for predicting metrics",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13051678"
+	},
+	"item": [
+		{
+			"name": "api",
+			"item": [
+				{
+					"name": "v1",
+					"item": [
+						{
+							"name": "prediction",
+							"item": [
+								{
+									"name": "{id}",
+									"item": [
+										{
+											"name": "get Result",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "*/*"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/prediction/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"prediction",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "<string>"
+														}
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "OK",
+													"originalRequest": {
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/prediction/:id",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"prediction",
+																":id"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "*/*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"id\": \"<string>\",\n  \"status\": \"<string>\",\n  \"predictedItems\": [\n    {\n      \"timeStamp\": \"<dateTime>\",\n      \"value\": \"<double>\"\n    },\n    {\n      \"timeStamp\": \"<dateTime>\",\n      \"value\": \"<double>\"\n    }\n  ]\n}"
+												},
+												{
+													"name": "Bad Request",
+													"originalRequest": {
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/prediction/:id",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"prediction",
+																":id"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																}
+															]
+														}
+													},
+													"status": "Bad Request",
+													"code": 400,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "*/*"
+														}
+													],
+													"cookie": [],
+													"body": "{}"
+												},
+												{
+													"name": "Forbidden",
+													"originalRequest": {
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/prediction/:id",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"prediction",
+																":id"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																}
+															]
+														}
+													},
+													"status": "Forbidden",
+													"code": 403,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "*/*"
+														}
+													],
+													"cookie": [],
+													"body": "{}"
+												},
+												{
+													"name": "Not Found",
+													"originalRequest": {
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/prediction/:id",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"prediction",
+																":id"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																}
+															]
+														}
+													},
+													"status": "Not Found",
+													"code": 404,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "*/*"
+														}
+													],
+													"cookie": [],
+													"body": "{}"
+												},
+												{
+													"name": "Internal Server Error",
+													"originalRequest": {
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/prediction/:id",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"prediction",
+																":id"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																}
+															]
+														}
+													},
+													"status": "Internal Server Error",
+													"code": 500,
+													"_postman_previewlanguage": "text",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "*/*"
+														}
+													],
+													"cookie": [],
+													"body": "{}"
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "create Order",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"botId\": \"<long>\",\n  \"serviceId\": \"<long>\",\n  \"tariffId\": \"<long>\",\n  \"days\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"value\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/prediction",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"prediction"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"botId\": \"<long>\",\n  \"serviceId\": \"<long>\",\n  \"tariffId\": \"<long>\",\n  \"days\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"value\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/prediction",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"prediction"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"id\": \"<string>\",\n  \"status\": \"<string>\",\n  \"predictedItems\": [\n    {\n      \"timeStamp\": \"<dateTime>\",\n      \"value\": \"<double>\"\n    },\n    {\n      \"timeStamp\": \"<dateTime>\",\n      \"value\": \"<double>\"\n    }\n  ]\n}"
+										},
+										{
+											"name": "Bad Request",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"botId\": \"<long>\",\n  \"serviceId\": \"<long>\",\n  \"tariffId\": \"<long>\",\n  \"days\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"value\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/prediction",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"prediction"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										},
+										{
+											"name": "Forbidden",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"botId\": \"<long>\",\n  \"serviceId\": \"<long>\",\n  \"tariffId\": \"<long>\",\n  \"days\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"value\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/prediction",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"prediction"
+													]
+												}
+											},
+											"status": "Forbidden",
+											"code": 403,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										},
+										{
+											"name": "Not Found",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"botId\": \"<long>\",\n  \"serviceId\": \"<long>\",\n  \"tariffId\": \"<long>\",\n  \"days\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"value\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/prediction",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"prediction"
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										},
+										{
+											"name": "Internal Server Error",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"botId\": \"<long>\",\n  \"serviceId\": \"<long>\",\n  \"tariffId\": \"<long>\",\n  \"days\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"value\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/prediction",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"prediction"
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "*/*"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "clientSecret",
+				"value": "{{client-secret}}",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "{{client-id}}",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "{{keycloakBaseUrl}}/realms/{{realm}}/protocol/openid-connect/token",
+				"type": "string"
+			},
+			{
+				"key": "tokenName",
+				"value": "token",
+				"type": "string"
+			},
+			{
+				"key": "challengeAlgorithm",
+				"value": "S256",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "admin",
+				"type": "string"
+			},
+			{
+				"key": "scope",
+				"value": "openid",
+				"type": "string"
+			},
+			{
+				"key": "password",
+				"value": "admin",
+				"type": "string"
+			},
+			{
+				"key": "grant_type",
+				"value": "client_credentials",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			},
+			{
+				"key": "client_authentication",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://9131f3e9d6e6:44493"
+		}
+	]
+}

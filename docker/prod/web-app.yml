@@ -1,0 +1,18 @@
+version: '3'
+services:
+  web-app:
+    image: ghcr.io/mark1708/bf-quasar-app:v1.0.3
+    networks:
+      - backend
+      - npm-public
+    deploy:
+      restart_policy:
+        condition: on-failure
+      mode: replicated
+      replicas: 1
+
+networks:
+  backend:
+    external: true
+  npm-public:
+    external: true

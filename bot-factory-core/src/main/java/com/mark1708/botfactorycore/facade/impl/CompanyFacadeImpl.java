@@ -32,7 +32,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class CompanyFacadeImplImpl implements CompanyFacade {
+public class CompanyFacadeImpl implements CompanyFacade {
 
   private final InvitationService invitationService;
   private final ProjectService projectService;
@@ -59,7 +59,6 @@ public class CompanyFacadeImplImpl implements CompanyFacade {
           throw new BadRequestException(
               "Query with ID type must have long type, but get - " + query);
         }
-
         return companyConverter.toDto(
             companyService.getCompanyById(Long.valueOf(query))
         );

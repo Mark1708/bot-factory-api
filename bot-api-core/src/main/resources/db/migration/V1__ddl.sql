@@ -46,6 +46,7 @@ CREATE TABLE IF NOT EXISTS services
     bot_id BIGINT       NOT NULL REFERENCES bots (id) ON DELETE CASCADE,
     type   INT          NOT NULL, -- (1-date, 2-counter)
     name   VARCHAR(255) NOT NULL
+-- unique by bot_id and name
 );
 
 CREATE TABLE IF NOT EXISTS tariffs
@@ -55,6 +56,7 @@ CREATE TABLE IF NOT EXISTS tariffs
     time_unit  INT    NOT NULL, -- (1 - seconds, 2- minutes, 3- hour, 4- day, 5- month, 6- year)
     value      BIGINT NOT NULL,
     price      BIGINT NOT NULL
+-- unique by service_id and name
 );
 
 CREATE TABLE IF NOT EXISTS subscriptions

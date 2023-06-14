@@ -1,13 +1,18 @@
 package com.mark1708.botapicore.repository;
 
-import com.mark1708.botapicore.model.entity.Service;
+import com.mark1708.botapicore.model.entity.SubService;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ServiceRepository extends JpaRepository<Service, Long> {
+public interface ServiceRepository extends JpaRepository<SubService, Long> {
 
-  List<Service> findAllByBotId(long id);
-  List<Service> findAllByType(long type);
+  List<SubService> findAllByBotId(long id);
+  List<SubService> findAllByBotIdAndNameLike(long botId, String name);
+  List<SubService> findAllByBotIdAndType(long botId, int type);
+  SubService findByIdAndBotId(long id, long botId);
+  Optional<SubService> findByBotIdAndName(long botId, String name);
+
 }

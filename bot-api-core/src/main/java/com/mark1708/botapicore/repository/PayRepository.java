@@ -10,10 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PayRepository extends JpaRepository<Pay, Long> {
 
-  List<Pay> findAllByServiceId(long serviceId);
-  List<Pay> findAllByUserId(long userId);
-  List<Pay> findAllByTariffId(long tariffId);
-
   @Query(value = "SELECT SUM(p.amount) FROM pays p "
       + "INNER JOIN services s ON s.id = p.service_id "
       + "WHERE s.bot_id = :botId", nativeQuery = true)
@@ -71,4 +67,25 @@ public interface PayRepository extends JpaRepository<Pay, Long> {
       + "WHERE p.user_id = :userId "
       + "AND p.pay_date >= date_trunc('month', now())", nativeQuery = true)
   long getTotalCountByUserIdAtCurrentMonth(@Param("userId") long userId);
+
+  @Query(value = "SELECT p.* FROM pays p "
+      + "INNER JOIN services s ON p.service_id = s.id "
+      + "WHERE s.bot_id = :botId"
+      , nativeQuery = true)
+  List<Pay> findAllByBotId(@Param("botId") long botId);
+
+  @Query(value = "SELECT p.* FROM pays p "
+      + "INNER JOIN services s ON p.service_id = s.id "
+      + "WHERE s.bot_id = :botId AND s.id = :serviceId"
+      , nativeQuery = true)
+  List<Pay> findAllByBotIdAndServiceId(
+      @Param("botId") long botId,
+      @Param("serviceId") long serviceId
+  );
+
+  @Query(value = "SELECT p.* FROM pays p "
+      + "INNER JOIN users u on u.id = p.user_id "
+      + "WHERE u.bot_id = :botId AND u.id = :userId"
+      , nativeQuery = true)
+  List<Pay> findAllByBotIdAndUserId(@Param("botId") long botId, @Param("userId") long userId);
 }
