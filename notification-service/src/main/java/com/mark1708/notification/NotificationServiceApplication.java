@@ -1,21 +1,9 @@
 package com.mark1708.notification;
 
-import com.mark1708.kafka.Document;
-import com.mark1708.kafka.KafkaMessageProducer;
-import com.mark1708.kafka.NewsletterMessage;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Base64;
-import java.util.List;
-import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.kafka.annotation.KafkaListener;
 
 @Slf4j
 @SpringBootApplication(

@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
-@EnableFeignClients
 @EnableEurekaClient
 @SpringBootApplication(
     scanBasePackages = {
@@ -23,6 +22,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
         description = "Core for web app and managing bots"
     )
 )
+@EnableFeignClients(basePackages = {"com.mark1708.clients"})
 public class BotFactoryCoreApplication {
 
   public static void main(String[] args) {

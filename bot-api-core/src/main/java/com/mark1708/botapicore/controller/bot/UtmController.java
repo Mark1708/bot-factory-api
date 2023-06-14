@@ -1,6 +1,6 @@
 package com.mark1708.botapicore.controller.bot;
 
-import com.mark1708.clients.tracker.UtmTrackerClient;
+import com.mark1708.clients.tracker.EventTrackerClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/utm/{botId}")
 public class UtmController {
 
-  private final UtmTrackerClient utmTrackerClient;
+  private final EventTrackerClient eventTrackerClient;
 
   @GetMapping("/{utmId}")
   public void processingUtm(
@@ -25,7 +25,7 @@ public class UtmController {
       @RequestParam(name = "userId") Long userId,
       @RequestParam(name = "isNew", required = false, defaultValue = "false") boolean newUser
   ) {
-    utmTrackerClient.processingUtm(botId, utmId, userId, newUser);
+    eventTrackerClient.processingUtm(botId, utmId, userId, newUser);
   }
 
   @PostMapping
@@ -37,7 +37,7 @@ public class UtmController {
       @RequestParam(name = "utm_content", required = false) String content,
       @RequestParam(name = "utm_term", required = false) String term
   ) {
-    return utmTrackerClient.generateLink(botId, source, medium, campaign, content, term);
+    return eventTrackerClient.generateLink(botId, source, medium, campaign, content, term);
   }
 
 
